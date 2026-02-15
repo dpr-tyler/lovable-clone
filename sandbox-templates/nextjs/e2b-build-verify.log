@@ -1,0 +1,54 @@
+
+╭───────────────────────────────────────────────────────────────╮
+│  DEPRECATION WARNING                                          │
+│                                                               │
+│  This is the v1 build system which is now deprecated.         │
+│  Please migrate to the new build system v2.                   │
+│                                                               │
+│  Migration guide: https://e2b.dev/docs/template/migration-v2  │
+╰───────────────────────────────────────────────────────────────╯
+
+
+Found sandbox template bbnjnhx30cysmk5eae6h vibe-nextjs-test-2 <-> ./e2b.toml
+Found ./e2b.Dockerfile that will be used to build the sandbox template.
+Requested build for the sandbox template bbnjnhx30cysmk5eae6h vibe-nextjs-test-2 
+Login Succeeded
+
+Building docker image with the following command:
+docker build -f e2b.Dockerfile --pull --platform linux/amd64 -t docker.e2b.app/e2b/custom-envs/bbnjnhx30cysmk5eae6h:18383e09-b6af-45db-8f64-6aa58aa304ce   .
+
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from e2b.Dockerfile
+#1 transferring dockerfile: 663B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:21-slim
+#2 DONE 0.9s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/9] FROM docker.io/library/node:21-slim@sha256:dfc05dee209a1d7adf2ef189bd97396daad4e97c6eaa85778d6f75205ba1b0fb
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 37B done
+#5 DONE 0.0s
+
+#6 [2/9] RUN apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [3/9] COPY compile_page.sh /compile_page.sh
+#7 CACHED
+
+#8 [4/9] RUN chmod +x /compile_page.sh
+#8 CACHED
+
+#9 [5/9] WORKDIR /home/user/nextjs-app
+#9 CACHED
+
+#10 [6/9] RUN npx --yes create-next-app@15.3.3 . --yes
+#10 CANCELED
+ERROR: failed to build: failed to solve: Canceled: context canceled
