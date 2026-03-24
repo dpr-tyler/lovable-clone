@@ -14,7 +14,6 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarProvider,
-  SidebarRail,
 } from "@/components/ui/sidebar";
 import { ChevronRightIcon, FileIcon, FolderIcon } from "lucide-react";
 
@@ -52,17 +51,15 @@ export const TreeView = ({ data, value, onSelect }: TreeViewProps) => {
 };
 
 interface TreeProps {
-  item: TreeItem | TreeItem[];
+  item: TreeItem;
   selectedValue?: string | null;
   onSelect?: (value: string) => void;
   parentPath: string;
 }
 
 const Tree = ({ item, selectedValue, onSelect, parentPath }: TreeProps) => {
-  const [name, ...items] = Array.isArray(item) ? item : [item];
-  const currentPath = parentPath ? `${parentPath}/${name}` : name;
-
-  if (!items.length) {
+  if (typeof item === "string") {
+    const currentPath = parentPath ? `${parentPath}/${item}` : item;
     const isSelected = selectedValue === currentPath;
 
     return (
@@ -72,10 +69,13 @@ const Tree = ({ item, selectedValue, onSelect, parentPath }: TreeProps) => {
         onClick={() => onSelect?.(currentPath)}
       >
         <FileIcon />
-        <span className="truncate">{name}</span>
+        <span className="truncate">{item}</span>
       </SidebarMenuButton>
     );
   }
+
+  const [name, childItems] = item;
+  const currentPath = parentPath ? `${parentPath}/${name}` : name;
 
   return (
     <SidebarMenuItem>
@@ -92,7 +92,7 @@ const Tree = ({ item, selectedValue, onSelect, parentPath }: TreeProps) => {
         </CollapsibleTrigger>
         <CollapsibleContent>
           <SidebarMenuSub>
-            {items.map((subItem, index) => (
+            {childItems.map((subItem, index) => (
               <Tree
                 key={index}
                 item={subItem}

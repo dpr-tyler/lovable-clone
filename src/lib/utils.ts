@@ -66,9 +66,9 @@ export function convertFilesToTreeItems(
         // It's a folder
         const subTree = convertNode(value, key);
         if (Array.isArray(subTree)) {
-          children.push([key, ...subTree]);
+          children.push([key, subTree as TreeItem[]]);
         } else {
-          children.push([key, subTree]);
+          children.push([key, subTree ? [subTree] : []]);
         }
       }
     }
@@ -77,5 +77,5 @@ export function convertFilesToTreeItems(
   }
 
   const result = convertNode(tree);
-  return Array.isArray(result) ? result : [result];
+  return Array.isArray(result) ? (result as TreeItem[]) : [result];
 }
